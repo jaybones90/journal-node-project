@@ -19,7 +19,7 @@ Entry.prototype.checkLetters = function() {
       vowelCount.push(letter);
     } else {
       consonantCount.push(letter);
-    };
+    }
   });
   this.vowels = vowelCount.length;
   this.consonants = consonantCount.length;
@@ -27,10 +27,13 @@ Entry.prototype.checkLetters = function() {
 
 Entry.prototype.getTeaser = function() {
   var firstSentence = this.body.split('.')[0];
-  var teaserArr = firstSentence.split(' ')
+  var teaserArr = firstSentence.split(' ');
   while (teaserArr.length > 8) {
     teaserArr.pop();
   }
   var teaserSentence = teaserArr.join(' ');
-  return `${teaserSentence}...`
-}
+  return `${teaserSentence}`;
+};
+
+
+exports.entryModule = Entry;

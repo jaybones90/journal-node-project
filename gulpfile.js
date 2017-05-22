@@ -1,11 +1,13 @@
-var gulp = require('gulp');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var utilities = require('gulp-util');
-var del = require('del');
-var jshint = require('gulp-jshint');
+var gulp = require('gulp'),
+  browserify = require('browserify'),
+  source = require('vinyl-source-stream'),
+  concat = require('gulp-concat'),
+  uglify = require('gulp-uglify'),
+  utilities = require('gulp-util'),
+  del = require('del'),
+  jshint = require('gulp-jshint'),
+  config = require('./config.json'),
+  babel = require("gulp-babel");
 
 gulp.task("clean", function(){
   return del(['build', 'tmp']);
@@ -35,6 +37,9 @@ gulp.task('concatInterface', function() {
 
 gulp.task("minifyScripts", ["jsBrowserify"], function(){
   return gulp.src("./build/js/app.js")
+    .pipe(babel({
+      presets: ['es2015']  // babel config object
+    }))
     .pipe(uglify())
     .pipe(gulp.dest("./build/js"));
 });
